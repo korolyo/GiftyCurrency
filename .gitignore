@@ -26,3 +26,5 @@ Mac
 .idea
 .DS-Store
 LICENSE
+.gradle
+build
