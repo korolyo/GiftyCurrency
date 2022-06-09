@@ -1,15 +1,16 @@
-package alfa.gifty;
+package alfa.gifty.model;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 public class ExchangeRate {
     private String disclaimer;
     private String license;
-    private LocalDateTime timestamp;
+    private String timestamp;
     private Map<String, Double> rates;
 
-    public ExchangeRate(String disclaimer, String license, LocalDateTime timestamp, Map<String, Double> rates) {
+    public ExchangeRate() { }
+
+    public ExchangeRate(String disclaimer, String license, String timestamp, Map<String, Double> rates) {
         this.disclaimer = disclaimer;
         this.license = license;
         this.timestamp = timestamp;
@@ -20,7 +21,7 @@ public class ExchangeRate {
         return disclaimer;
     }
 
-    public void setDisclaimer(java.lang.String disclaimer) {
+    public void setDisclaimer(String disclaimer) {
         this.disclaimer = disclaimer;
     }
 
@@ -32,11 +33,11 @@ public class ExchangeRate {
         this.license = license;
     }
 
-    public LocalDateTime getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
