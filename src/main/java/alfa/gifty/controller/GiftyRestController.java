@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/gif")
 public class GiftyRestController {
 
-    private ExchangeRateServer exchangeRateServer;
-    private GiphyServer giphyServer;
+//    private ExchangeRateServer exchangeRateServer;
+//    private GiphyServer giphyServer;
 
-    @Autowired
-    public GiftyRestController(
-            ExchangeRateServer exchangeRateServer,
-            GiphyServer giphyServer
-    ) {
-        this.exchangeRateServer = exchangeRateServer;
-        this.giphyServer = giphyServer;
-    }
+//    @Autowired
+//    public GiftyRestController(
+//            ExchangeRateServer exchangeRateServer,
+//            GiphyServer giphyServer
+//    ) {
+//        this.exchangeRateServer = exchangeRateServer;
+//        this.giphyServer = giphyServer;
+//    }
 
     @GetMapping("/hello")
     public String postTodayRate() {
