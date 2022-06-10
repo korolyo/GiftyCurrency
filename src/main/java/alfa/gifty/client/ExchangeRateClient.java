@@ -2,7 +2,7 @@ package alfa.gifty.client;
 
 import alfa.gifty.model.ExchangeRate;
 
-public interface ExchangeRateFiengClient {
+public interface ExchangeRateClient {
 
     ExchangeRate getTodayRate(String id);
 

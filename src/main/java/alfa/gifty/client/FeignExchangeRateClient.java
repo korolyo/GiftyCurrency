@@ -3,11 +3,11 @@ package alfa.gifty.client;
 import alfa.gifty.model.ExchangeRate;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "exchange", url = "${openexchangerates.url}")
-public interface ExchangeRateFeingClientImpl extends ExchangeRateFiengClient {
+public interface FeignExchangeRateClient extends ExchangeRateClient {
 
     @Override
     @GetMapping("/latest.json")
