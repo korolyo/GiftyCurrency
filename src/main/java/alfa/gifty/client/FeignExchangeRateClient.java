@@ -19,5 +19,4 @@ public interface FeignExchangeRateClient extends ExchangeRateClient {
                     @RequestParam("app_id") String id,
                     @PathVariable String date
     );
-
 }

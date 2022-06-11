@@ -9,7 +9,6 @@ public class ExchangeRate {
     private String base;
     private Map<String, Double> rates;
 
-
     public ExchangeRate() { }
 
     public ExchangeRate(String disclaimer, String license, String timestamp, Map<String, Double> rates) {
@@ -17,14 +16,6 @@ public class ExchangeRate {
         this.license = license;
         this.timestamp = timestamp;
         this.rates = rates;
-    }
-
-    public String getBase() {
-        return base;
-    }
-
-    public void setBase(String base) {
-        this.base = base;
     }
 
     public java.lang.String getDisclaimer() {
@@ -49,6 +40,14 @@ public class ExchangeRate {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
     }
 
     public Map<String, Double> getRates() {
