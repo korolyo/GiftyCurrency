@@ -1,37 +1,40 @@
-package alfa.gifty.server;
+package alfa.gifty.service;
 
 import alfa.gifty.client.ExchangeRateClient;
 import alfa.gifty.model.ExchangeRate;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
 
 @Service
-public class ExchangeRateServerImpl implements ExchangeRateServer {
+public class ExchangeRateServiceImpl implements ExchangeRateService {
 //
     private ExchangeRate todayRate;
     private ExchangeRate yesterdayRate;
     private ExchangeRateClient exchangeRateClient;
-//    private SimpleDateFormat dateFormat;
-//    private SimpleDateFormat timeFormat;
-//    private Double
+    private SimpleDateFormat dateFormat;
     @Value("${openexchangerates.app_id}")
     private String appId;
-    @Value("${openexchangerates.currency}")
+
     private String currencyBase;
-//
+
     @Autowired
-    public ExchangeRateServerImpl(
-            ExchangeRateClient exchangeRateClient
-    ) {
+    public ExchangeRateServiceImpl(
+            ExchangeRateClient exchangeRateClient,
+            @Qualifier("date_bean")SimpleDateFormat dateFormat
+            ) {
         this.exchangeRateClient = exchangeRateClient;
+        this.dateFormat = dateFormat;
     }
 
     @Override
     public int getCurrencyRate(String currencyBase) {
+        this.realRates();
         Double prevCoefficient = this.getSubtractionOfRates(this.yesterdayRate);
         Double currentCoefficient = this.getSubtractionOfRates(this.todayRate);
         return prevCoefficient != null && currentCoefficient != null
@@ -39,35 +42,25 @@ public class ExchangeRateServerImpl implements ExchangeRateServer {
                 : -101;
     }
 
+    private void realRates() {
+        long currentTime = System.currentTimeMillis();
+        Calendar prevCalendar = Calendar.getInstance();
+        prevCalendar.setTimeInMillis(currentTime);
+        prevCalendar.add(Calendar.DAY_OF_YEAR, -1);
+        String newPrevDate = dateFormat.format(prevCalendar.getTime());
+
+        this.todayRate = exchangeRateClient.getTodayRate(this.appId);
+        this.yesterdayRate = exchangeRateClient.getYesterdayRate(this.appId, newPrevDate);
+    }
+
     private Double getSubtractionOfRates(ExchangeRate rate) {
         Double targetRate = null;
         Map<String, Double> map = null;
+
         if (rate != null && rate.getRates() != null) {
             map = rate.getRates();
             targetRate = map.get(this.currencyBase);
         }
         return targetRate;
     }
-
-//    private Double getCoefficient(ExchangeRate rate, String currencyCode) {
-//        Double result = null;
-//        Double targetRate = null;
-//        Double appBaseRate = null;
-//        Double defaultBaseRate = null;
-//        Map<String, Double> map = null;
-//        if (rate != null && rate.getRates() != null) {
-//            map = rate.getRates();
-//            targetRate = map.get(currencyCode);
-//            appBaseRate = map.get(this.currency);
-//            defaultBaseRate = map.get(rate.getBase());
-//        }
-//        if (targetRate != null && appBaseRate != null && defaultBaseRate != null) {
-//            result = new BigDecimal(
-//                    (defaultBaseRate / appBaseRate) * targetRate
-//            )
-//                    .setScale(4, RoundingMode.UP)
-//                    .doubleValue();
-//        }
-//        return result;
-//    }
 }
