@@ -13,15 +13,13 @@ import java.util.Map;
 
 @Service
 public class ExchangeRateServiceImpl implements ExchangeRateService {
-//
+
     private ExchangeRate todayRate;
     private ExchangeRate yesterdayRate;
     private ExchangeRateClient exchangeRateClient;
     private SimpleDateFormat dateFormat;
     @Value("${openexchangerates.app_id}")
     private String appId;
-
-    private String currencyBase;
 
     @Autowired
     public ExchangeRateServiceImpl(
@@ -35,8 +33,8 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public int getCurrencyRate(String currencyBase) {
         this.realRates();
-        Double prevCoefficient = this.getSubtractionOfRates(this.yesterdayRate);
-        Double currentCoefficient = this.getSubtractionOfRates(this.todayRate);
+        Double prevCoefficient = this.getSubtractionOfRates(this.yesterdayRate, currencyBase);
+        Double currentCoefficient = this.getSubtractionOfRates(this.todayRate, currencyBase);
         return prevCoefficient != null && currentCoefficient != null
                 ? Double.compare(currentCoefficient, prevCoefficient)
                 : -101;
@@ -53,13 +51,13 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         this.yesterdayRate = exchangeRateClient.getYesterdayRate(this.appId, newPrevDate);
     }
 
-    private Double getSubtractionOfRates(ExchangeRate rate) {
+    private Double getSubtractionOfRates(ExchangeRate rate, String currencyBase) {
         Double targetRate = null;
         Map<String, Double> map = null;
 
         if (rate != null && rate.getRates() != null) {
             map = rate.getRates();
-            targetRate = map.get(this.currencyBase);
+            targetRate = map.get(currencyBase);
         }
         return targetRate;
     }

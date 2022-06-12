@@ -1,10 +1,8 @@
 package alfa.gifty.client;
 
-import org.springframework.http.ResponseEntity;
-
-import java.util.Map;
+import com.fasterxml.jackson.core.JsonParser;
 
 public interface GiphyClient {
 
-    ResponseEntity<Map> getGif(String apiKey, String tag);
+    String getGif(String apiKey, String tag);
 }
