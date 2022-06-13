@@ -53,8 +53,7 @@ localhost:8080/{code}
 
 Endpoints:
 ---  
-Получить гиф  
-(пример ответа: https://api.giphy.com/v1/gifs/random?api_key=LQIz0s73ixRR5Tn9uGNSPWumkNF1vVMk&tag=rich):
+Получить гиф:
 ```
 GET /{Currency Code}
 ```
