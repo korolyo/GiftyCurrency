@@ -54,8 +54,6 @@ public class AlfaGiftyService {
 
         try {
             parent = new ObjectMapper().readTree(giphyService.getGif(gifTag));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

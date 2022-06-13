@@ -6,6 +6,8 @@ Web app, that connect currency API with a .gif API and throw a random gif depend
 
 
 
+
+
 Описание:
 ---
 ```
