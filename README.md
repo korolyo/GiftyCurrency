@@ -7,6 +7,10 @@ Web app, that connect currency API with a .gif API and throw a random gif depend
 
 
 
+## git clone git@github.com:korolyo/GiftyCurrency.git
+## cd GiftyCurrency
+## 
+
 
 Описание:
 ---
